@@ -43,7 +43,7 @@ function Main() {
 
   return (
     <>
-      {isAuth ? <App /> : <Login />}
+      {isAuth ? <App /> : <Login setIsAuth={setIsAuth} />}
     </>
   )
 

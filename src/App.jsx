@@ -6,8 +6,6 @@ import axios from 'axios';
 
 const apiPath = "https://ec-course-api.hexschool.io/v2/api/";
 
-const BPtoken = document.cookie
-  .replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
 function Modal({ product, onClose }) {
   if (!product) return null;
@@ -56,6 +54,10 @@ function App() {
 
   // const [count, setCount] = useState(0);
   const [Products, setProducts] = useState();
+
+  const BPtoken = document.cookie
+    .replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+
 
   const getData = async () => {
     axios.get(`${apiPath}hahablackpink/admin/products`, {
