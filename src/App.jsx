@@ -7,7 +7,7 @@ import axios from 'axios';
 const apiPath = "https://ec-course-api.hexschool.io/v2/api/";
 
 const BPtoken = document.cookie
-  .replace(/(?:(?:^|.*;\s*)BPToken\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+  .replace(/(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
 
 function Modal({ product, onClose }) {
   if (!product) return null;

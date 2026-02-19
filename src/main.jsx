@@ -13,25 +13,31 @@ function Main() {
 
 
   useEffect(() => {
-    const BPCookie = document.cookie.replace(
-      /(?:(?:^|.*;\s*)BPToken\s*\=\s*([^;]*).*$)|^.*$/,
-      "$1",
-    );
-    if (!BPCookie) {
-      setIsAuth(false);
-      return;
-    }
+    const checkLogin = async () => {
 
-    axios.defaults.headers.common['Authorization'] = BPCookie;
+      const BPCookie = document.cookie.replace(
+        /(?:(?:^|.*;\s*)token\s*\=\s*([^;]*).*$)|^.*$/,
+        "$1",
+      );
+      if (!BPCookie) {
+        setIsAuth(false);
+        return;
+      }
 
-    axios.post(`${apiPath}v2/api/user/check`)
-      .then((res) => {
+      axios.defaults.headers.common['Authorization'] = BPCookie;
+
+      try {
+        const res = await axios.post(`${apiPath}v2/api/user/check`);
         console.log(res.data);
         setIsAuth(true);
-      })
-      .catch((error) => {
+
+      } catch (error) {
         setIsAuth(false);
-      })
+      }
+
+    }
+
+    checkLogin();
 
   }, [])
 

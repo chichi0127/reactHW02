@@ -9,9 +9,10 @@ export default function Login() {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [BPtoken, setToken] = useState("");
+    const [token, setToken] = useState("");
 
     const handlePass = (e) => {
+        console.log(e.target.value);
         setPassword(e.target.value);
 
     }
@@ -21,7 +22,7 @@ export default function Login() {
 
     }
 
-    const singIn = async () => {
+    const signIn = async () => {
         try {
             const res = await axios.post(`${apiPath}v2/admin/signin`, {
                 username: username,
@@ -29,17 +30,15 @@ export default function Login() {
             });
             const { token, expired } = res.data;
             setToken(token);
-            document.cookie = `BPToken=${BPtoken}; expires=${new Date(expired)}; path=/`;
-
-            axios.defaults.headers.common['Authorization'] = BPtoken;
+            document.cookie = `token=${token}; expires=${new Date(expired)}; path=/`;
+            axios.defaults.headers.common['Authorization'] = token;
 
         } catch (error) {
             console.log(error.message);
         }
     }
 
-    // hahahaha@test.com
-    // 12345678
+
 
     return (
         <>
@@ -53,7 +52,7 @@ export default function Login() {
                         <input type="password" value={password} id='password' className='form-control' onChange={handlePass} placeholder='請輸入密碼' />
                     </div>
                     <div className='d-flex justify-content-center'>
-                        <button className='btn btn-primary text-center fw-bold px-4 fs-6 mt-4' onClick={singIn}>送出</button>
+                        <button className='btn btn-primary text-center fw-bold px-4 fs-6 mt-4' onClick={signIn}>送出</button>
                     </div>
                 </div>
             </div>
